@@ -5,6 +5,9 @@ import PropTypes from 'prop-types';
 import Button from '../Button/Button';
 
 const Product = (props) => {
+  const prepareColorClassName = (color) => {
+    return styles['color' + color[0].toUpperCase() + color.substr(1).toLowerCase()];
+  };
   const [currentColor, setCurrentColor] = useState(props.colors[0]);
   const [currentSize, setCurrentSize] = useState(props.sizes[0].name);
   return (
@@ -26,10 +29,11 @@ const Product = (props) => {
             <h3 className={styles.optionLabel}>Sizes</h3>
             <ul className={styles.choices}>
               {props.sizes.map((size) => (
-                <li>
+                <li key={props.sizes.indexOf(size)}>
                   <button
+                    onClick={() => setCurrentSize(size.name)}
                     type="button"
-                    className={clsx(size.name === currentSize && styles.active)}>
+                    className={clsx(currentSize === size.name && styles.active)}>
                     {size.name}
                   </button>
                 </li>
@@ -39,15 +43,18 @@ const Product = (props) => {
           <div className={styles.colors}>
             <h3 className={styles.optionLabel}>Colors</h3>
             <ul className={styles.choices}>
-              <li>
-                <button type="button" className={clsx(styles.colorBlack, styles.active)} />
-              </li>
-              <li>
-                <button type="button" className={clsx(styles.colorRed)} />
-              </li>
-              <li>
-                <button type="button" className={clsx(styles.colorWhite)} />
-              </li>
+              {props.colors.map((color) => (
+                <li key={props.colors.indexOf(color)}>
+                  <button
+                    onClick={() => setCurrentColor(color)}
+                    type="button"
+                    className={clsx(
+                      prepareColorClassName(color),
+                      color === currentColor && styles.active
+                    )}
+                  />
+                </li>
+              ))}
             </ul>
           </div>
           <Button className={styles.button}>
@@ -67,4 +74,5 @@ Product.propTypes = {
   sizes: PropTypes.array,
   title: PropTypes.string
 };
+
 export default Product;
