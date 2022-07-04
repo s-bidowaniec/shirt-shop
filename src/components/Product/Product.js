@@ -1,5 +1,6 @@
 import styles from './Product.module.scss';
 import clsx from 'clsx';
+import PropTypes from 'prop-types';
 import Button from '../Button/Button';
 
 const Product = props => {
@@ -13,8 +14,8 @@ const Product = props => {
       </div>
       <div>
         <header>
-          <h2 className={styles.name}>Kodilla shirt</h2>
-          <span className={styles.price}>Price: 20$</span>
+          <h2 className={styles.name}>{props.title}</h2>
+          <span className={styles.price}>Price: {props.basePrice}$</span>
         </header>
         <form>
           <div className={styles.sizes}>
@@ -43,4 +44,12 @@ const Product = props => {
   )
 };
 
+Product.propTypes = {
+  basePrice: PropTypes.number,
+  colors: PropTypes.array,
+  id: PropTypes.number,
+  name: PropTypes.string,
+  sizes: PropTypes.array,
+  title: PropTypes.string
+}
 export default Product;
