@@ -9,7 +9,7 @@ const ProductOptions = (props) => {
     event.preventDefault();
     console.log('Summary\n==========');
     console.log('Name:', props.title);
-    console.log('Price:', props.getPrice());
+    console.log('Price:', props.getPrice);
     console.log('Size:', props.currentSize.name);
     console.log('Color:', props.currentColor);
   };
@@ -34,7 +34,7 @@ const ProductOptions = (props) => {
 
 ProductOptions.propTypes = {
   title: PropTypes.string,
-  getPrice: PropTypes.func,
+  getPrice: PropTypes.number,
   currentSize: PropTypes.object,
   setCurrentSize: PropTypes.func,
   currentColor: PropTypes.string,
